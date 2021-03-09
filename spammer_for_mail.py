@@ -13,8 +13,8 @@ from email.mime.multipart import MIMEMultipart  # Многокомпонентн
 
 
 def send_email(addr_to, msg_subj, msg_text, files):
-    addr_from = "magic-magnet.ru@mail.ru"  # Отправитель
-    password = "emufef56"  # Пароль
+    addr_from = "your_email"  # Отправитель
+    password = "password"  # Пароль
 
     msg = MIMEMultipart()  # Создаем сообщение
     msg['From'] = addr_from  # Адресат
@@ -89,21 +89,17 @@ def attach_file(msg, filepath):  # Функция по добавлению ко
 
 
 def main():
-    files = [r'C:\Users\AppDev\Desktop\Рассылка']  # папка с файлами
+    files = [r'C:\Users\AppDev\Desktop\dir']  # папка с файлами для закрепления , если files = [] , то не прикрепляет файлы
 
-    telo_mail = ("\n"
-              "Мы обращаемся к тому, кто знаком с туристическим бизнесом не понаслышке. Кто давно занимается торговлей сувенирной продукции. Нечем удивить клиента в прикассовой зоне? Продаёте один и тот же ассортимент из года в год? Ваши устаревшие магниты пылятся годами? Вы вынуждены распродавать их за копейки? \n"
-              "Выход есть! Мы предлагаем уникальный продукт, аналогов которому в мире нет – ЖИВОЙ МАГНИТ!!! Повысьте свои продажи. Удивите своих клиентов. Станьте первым и уникальным среди конкурентов!\n"
-              "\nНаши контакты: +7 952 407-10-11 WhatsApp "
-                 "    По всем вопросам 233373g@gmail.com или 89524071011@mail.ru"
+    telo_mail = ("text body"
               "\n")
-    with open('1.txt', 'r', encoding='utf-8', errors='ignore') as lf:
+    with open('target.txt', 'r', encoding='utf-8', errors='ignore') as lf:
         mails = lf.readlines()
         lfg = 765
         for i in mails:
-            print('\nОтправляю письмо №{} на {}'.format(str(lfg), i))
+            print('\nОтправляю письмо № {} на {}'.format(str(lfg), i))
             try:
-                send_email(i, "Уникальные подарочные магниты !", telo_mail, files)
+                send_email(i, "theme", telo_mail, files)
             except Exception as e:
                 print(e)
                 continue
