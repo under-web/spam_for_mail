@@ -13,8 +13,8 @@ from email.mime.multipart import MIMEMultipart  # Многокомпонентн
 
 
 def send_email(addr_to, msg_subj, msg_text, files):
-    addr_from = "your_email"  # Отправитель
-    password = "password"  # Пароль
+    addr_from = ""  # Отправитель
+    password = ""  # Пароль
 
     msg = MIMEMultipart()  # Создаем сообщение
     msg['From'] = addr_from  # Адресат
@@ -35,16 +35,22 @@ def send_email(addr_to, msg_subj, msg_text, files):
         print("Соединяюсь")
         server.login(addr_from, password)  # Получаем доступ
         print("Успешно".center(40, '#'))
+        time.sleep(7)
     except Exception as e:
         print('Не получилось залогиниться')
         print(e)
+        time.sleep(5)
     try:
         server.send_message(msg)  # Отправляем сообщение
         print('Отправлено\n\n')
+        time.sleep(3)
     except Exception as e:
         print('Не отправили')
         print(e)
-    server.quit()  # Выходим
+        time.sleep(3)
+    finally:
+        time.sleep(10)
+        server.quit()  # Выходим
     # ==========================================================================================================================
 
 
@@ -89,17 +95,23 @@ def attach_file(msg, filepath):  # Функция по добавлению ко
 
 
 def main():
-    files = [r'C:\Users\AppDev\Desktop\dir']  # папка с файлами для закрепления , если files = [] , то не прикрепляет файлы
+    files = ['/home/appdev/Рабочий стол/Текущая/Рассылка']  # папка с файлами для закрепления , если files = [] , то не прикрепляет файлы
 
-    telo_mail = ("text body"
-              "\n")
-    with open('target.txt', 'r', encoding='utf-8', errors='ignore') as lf:
-        mails = lf.readlines()
-        lfg = 765
-        for i in mails:
+    telo_mail = '''Как удивить туристов за 60 секунд?
+
+Не знаете, как привлечь туристов, которых сложно уже чем-то удивить?
+Хотите иметь качественный и оригинальный продукт с хорошей наценкой?
+
+Видео магниты привлекут больше внимания к вашему магазину и помогут увеличить средний чек
+
+Переходите по ссылке и посмотрите, как это работает!  https://magic-magnet.ru/lavka.html'''
+    with open('/home/appdev/Рабочий стол/Текущая/Базы/out_mail_VK.txt', 'r', encoding='utf-8', errors='ignore') as lf:
+
+        lfg = 0
+        for i in lf:
             print('\nОтправляю письмо № {} на {}'.format(str(lfg), i))
             try:
-                send_email(i, "theme", telo_mail, files)
+                send_email(i.strip(), "Для вашего бизнеса", telo_mail, files)
             except Exception as e:
                 print(e)
                 continue
